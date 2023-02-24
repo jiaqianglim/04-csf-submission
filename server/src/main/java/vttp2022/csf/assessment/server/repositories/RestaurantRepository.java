@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.bson.Document;
 import vttp2022.csf.assessment.server.models.Comment;
 import vttp2022.csf.assessment.server.models.ModelConversion;
@@ -47,12 +50,19 @@ public class RestaurantRepository {
 	// You can add any parameters (if any)
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	// Write the Mongo native query above for this method
-	//
+	// db.restaurant.aggregrate([{$match:{name: "name"}}, {$project:{_id:-1,
+	// restaurant_id:1, name:1, cuisine:1, address:1, address.coord:1}}])
 	public Optional<Restaurant> getRestaurant(String name) {
 		// Implmementation in here
-		Query query = Query.query(Criteria.where("name").is(name));
-		Document results = mongotemp.findOne(query, Document.class, "restaurants");
-		return Optional.ofNullable(ModelConversion.toRestaurant(results));
+		MatchOperation matchName = Aggregation.match(Criteria.where("name").is(name));
+		ProjectionOperation projectFields = Aggregation
+				.project("restaurant_id", "name", "cuisine", "address").and("address.coord").as("coordinates")
+				.andExclude("_id");
+		LimitOperation limitToOne = Aggregation.limit(1);
+		Aggregation pipeline = Aggregation.newAggregation(matchName, projectFields, limitToOne);
+		List<Document> results = mongotemp.aggregate(pipeline, "restaurants", Document.class).getMappedResults();
+		Document result = results.get(0);
+		return Optional.ofNullable(ModelConversion.toRestaurant(result));
 	}
 
 	// TODO Task 5
@@ -62,7 +72,7 @@ public class RestaurantRepository {
 	//
 	public void addComment(Comment comment) {
 		// Implmementation in here
-
+		
 	}
 
 	// You may add other methods to this class

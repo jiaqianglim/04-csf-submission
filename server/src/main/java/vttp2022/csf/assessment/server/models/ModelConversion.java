@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ModelConversion {
 
-
     public static Restaurant toRestaurant(Document d) {
 
         Restaurant restaurant = new Restaurant();
@@ -19,5 +18,17 @@ public class ModelConversion {
         ll.setLongitude(lll.get(1));
         restaurant.setCoordinates(ll);
         return restaurant;
+    }
+
+    public static String toKeyString(LatLng ll) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Float.toString(ll.getLatitude()));
+        sb.append(Float.toString(ll.getLongitude()));
+        return sb.toString();
+    }
+
+    public static Document toDocument(Comment comment){
+        Document doc = new Document();
+        
     }
 }
