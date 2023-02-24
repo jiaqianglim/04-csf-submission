@@ -1,1 +1,8 @@
 <p>restaurant-cuisine works!</p>
+<h1>List of {{ cuisinetag }} Restaurants</h1>
+<ul>
+  <li *ngFor="let rest of restList" (click)="toRest(rest)">
+    {{ rest }}
+  </li>
+  <button (click)="toIndex()">BACK</button>
+</ul>

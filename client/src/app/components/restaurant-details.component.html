@@ -1,1 +1,20 @@
 <p>restaurant-details works!</p>
+<h3 style="font-weight: bold">Name:</h3>
+<h3>{{ RestaurantDets.name }}</h3>
+<br />
+<h3 style="font-weight: bold">Cuisine:</h3>
+<h3>{{ RestaurantDets.cusisine }}</h3>
+<br />
+<h3 style="font-weight: bold">Address:</h3>
+<h3>{{ RestaurantDets.address }}</h3>
+<br />
+
+<form>
+  <h3 style="font-weight: bold">Comment:</h3>
+  <br />
+  <h3 style="font-weight: bold"></h3>
+  <input /><br />
+  <textarea></textarea>
+  <button (click)="toCuisine()">BACK</button>
+  <button (click)="process()">SUBMIT</button>
+</form>

@@ -38,21 +38,18 @@ public class APIController {
 
     @GetMapping(path = "/cuisine")
     public ResponseEntity<String> getCuisines() {
-        JsonObjectBuilder jo = Json.createObjectBuilder();
         List<String> cuisines = restsvc.getCuisines();
         JsonArrayBuilder ja = Json.createArrayBuilder();
         cuisines.stream().map(c -> ja.add(c));
-        jo.add("cuisine", ja);
-        return ResponseEntity.ok().body(jo.build().toString());
+        return ResponseEntity.ok().body(ja.build().toString());
     }
 
     @GetMapping(path = "/{cuisine}/restaurants")
     public ResponseEntity<String> getRestaurantsByCuisine(@PathVariable String cuisine) {
         List<String> namesOfRestaurants = restsvc.getRestaurantsByCuisine(cuisine);
-        JsonObjectBuilder jo = Json.createObjectBuilder();
         JsonArrayBuilder ja = Json.createArrayBuilder();
         namesOfRestaurants.stream().map(c -> ja.add(c));
-        return ResponseEntity.ok().body(jo.build().toString());
+        return ResponseEntity.ok().body(ja.build().toString());
     }
 
     @GetMapping(path = "/restaurant")

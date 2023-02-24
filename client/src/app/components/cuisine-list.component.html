@@ -1,1 +1,7 @@
 <p>cuisine-list works!</p>
+<h1>List of Cuisines</h1>
+<ul>
+  <li *ngFor="let cus of cuisines" (click)="toCuisine(cus)">
+      {{ cus }}
+  </li>
+</ul>

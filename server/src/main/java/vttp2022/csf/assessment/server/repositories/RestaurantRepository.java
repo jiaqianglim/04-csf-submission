@@ -74,7 +74,7 @@ public class RestaurantRepository {
 	//
 	public void addComment(Comment comment) {
 		// Implmementation in here
-		String name = comment.getName();
+		String name = comment.getRestaurantId();
 		Query query = Query.query(Criteria.where("name").is(comment.getName()));
 		Update update = new Update().set("comments", ModelConversion.toDocument(comment));
 		mongotemp.updateMulti(query, update, Document.class, "restaurants");
