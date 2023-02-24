@@ -1,6 +1,6 @@
 import { Restaurant, Comment } from './models';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable, throwError } from 'rxjs';
 import { catchError, retry, take } from 'rxjs/operators';
 
@@ -48,8 +48,13 @@ export class RestaurantService {
   // Use this method to find a specific restaurant
   // You can add any parameters (if any)
   // DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
-  public getRestaurant(name: String): Promise<Restaurant> {
+  public getRestaurant(name: string): Promise<Restaurant> {
     // Implememntation in here
+    let queryParams = new HttpParams().set('name', name);
+    let result$ = this.http
+      .get<Restaurant>('api/restaurant/', { params: queryParams })
+      .pipe(take(1));
+    return lastValueFrom(result$);
   }
 
   // TODO Task 5
