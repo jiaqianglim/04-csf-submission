@@ -1,1 +1,3 @@
 TODO: Task 1 - Write the mongo import command here
+(I AM USING DIGITALOCEAN VM)
+mongoimport -hlocalhost --port=27017 -dcsfa -crestaurants --jsonArray ./restaurants.json
