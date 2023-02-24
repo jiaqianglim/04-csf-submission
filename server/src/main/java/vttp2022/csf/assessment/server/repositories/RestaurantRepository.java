@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
@@ -72,7 +74,10 @@ public class RestaurantRepository {
 	//
 	public void addComment(Comment comment) {
 		// Implmementation in here
-		
+		String name = comment.getName();
+		Query query = Query.query(Criteria.where("name").is(comment.getName()));
+		Update update = new Update().set("comments", ModelConversion.toDocument(comment));
+		mongotemp.updateMulti(query, update, Document.class, "restaurants");
 	}
 
 	// You may add other methods to this class

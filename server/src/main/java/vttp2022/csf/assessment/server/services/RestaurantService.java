@@ -55,7 +55,7 @@ public class RestaurantService {
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	public void addComment(Comment comment) {
 		// Implmementation in here
-		
+		restaurantRepo.addComment(comment);
 	}
 	//
 	// You may add other methods to this class

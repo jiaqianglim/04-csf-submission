@@ -1,6 +1,9 @@
 package vttp2022.csf.assessment.server.models;
 
 import org.bson.Document;
+
+import jakarta.json.JsonObject;
+
 import java.util.List;
 
 public class ModelConversion {
@@ -27,8 +30,19 @@ public class ModelConversion {
         return sb.toString();
     }
 
-    public static Document toDocument(Comment comment){
+    public static Document toDocument(Comment comment) {
         Document doc = new Document();
-        
+        doc.append("name", comment.getName());
+        doc.append("rating", comment.getRating());
+        doc.append("text", comment.getText());
+        return doc;
+    }
+
+    public static Comment toComment(JsonObject o) {
+        Comment c = new Comment();
+        c.setName(o.getString("name"));
+        c.setRating(o.getInt("rating"));
+        c.setText(o.getString("text"));
+        return c;
     }
 }
