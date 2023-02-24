@@ -9,12 +9,14 @@
 <h3>{{ RestaurantDets.address }}</h3>
 <br />
 
-<form>
+<form [formGroup]="commentForm">
   <h3 style="font-weight: bold">Comment:</h3>
   <br />
-  <h3 style="font-weight: bold"></h3>
-  <input /><br />
-  <textarea></textarea>
+  <h3 style="font-weight: bold">Name</h3>
+  <input formControlName="name" /><br />
+  <h3 style="font-weight: bold">Rating:</h3>
+  <input formControlName="rating" />
+  <textarea formControlName="text"></textarea>
   <button (click)="toCuisine()">BACK</button>
   <button (click)="process()">SUBMIT</button>
 </form>

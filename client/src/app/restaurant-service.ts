@@ -2,7 +2,7 @@ import { Restaurant, Comment } from './models';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable, throwError } from 'rxjs';
-import { catchError, retry, take } from 'rxjs/operators';
+import { catchError, last, retry, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -62,5 +62,9 @@ export class RestaurantService {
   // DO NOT CHANGE THE METHOD'S NAME OR SIGNATURE
   public postComment(comment: Comment): Promise<any> {
     // Implememntation in here
+    let result$ = this.http
+      .post<string>('/api/comments', comment)
+      .pipe(take(1));
+    return lastValueFrom(result$);
   }
 }

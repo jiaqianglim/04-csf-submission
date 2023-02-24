@@ -27,7 +27,7 @@ export class RestaurantDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.commentForm = this.fb.group({
       name: this.fb.control<string>('', Validators.required),
-      rating: this.fb.control<string>('', [
+      rating: this.fb.control<number>(0, [
         Validators.required,
         Validators.min(1),
         Validators.max(5),
@@ -45,5 +45,15 @@ export class RestaurantDetailsComponent implements OnInit {
 
   toCuisine() {
     this.router.navigate;
+  }
+
+  process() {
+    formval = this.commentForm.value as FORMVAL;
+    let omment = new Comment(){
+      name: formval.get("name")
+      rating: formval.get('rating')
+      comment: formval.get('commit')
+        }
+    this.rs.postComment(comment);
   }
 }
