@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
+import org.bson.Document;
 import vttp2022.csf.assessment.server.models.Comment;
+import vttp2022.csf.assessment.server.models.ModelConversion;
 import vttp2022.csf.assessment.server.models.Restaurant;
 
 public class RestaurantRepository {
@@ -38,7 +39,7 @@ public class RestaurantRepository {
 		// Implmementation in here
 		Query query = Query.query(Criteria.where("cuisine").in(cuisine));
 		List<String> results = mongotemp.find(query, String.class, "restuarants");
-
+		return results;
 	}
 
 	// TODO Task 4
@@ -49,10 +50,9 @@ public class RestaurantRepository {
 	//
 	public Optional<Restaurant> getRestaurant(String name) {
 		// Implmementation in here
-		Query query = Query.query(Criteria.where("name").in(name);
-		
-
-		
+		Query query = Query.query(Criteria.where("name").is(name));
+		Document results = mongotemp.findOne(query, Document.class, "restaurants");
+		return Optional.ofNullable(ModelConversion.toRestaurant(results));
 	}
 
 	// TODO Task 5

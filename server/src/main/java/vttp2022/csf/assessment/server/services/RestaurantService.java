@@ -18,31 +18,36 @@ public class RestaurantService {
 	@Autowired
 	private MapCache mapCache;
 
-	// TODO Task 2 
-	// Use the following method to get a list of cuisines 
-	// You can add any parameters (if any) and the return type 
+	// TODO Task 2
+	// Use the following method to get a list of cuisines
+	// You can add any parameters (if any) and the return type
 	// DO NOT CHNAGE THE METHOD'S NAME
 	public List<String> getCuisines() {
 		return restaurantRepo.getCuisines();
-		
+
 	}
 
-	// TODO Task 3 
+	// TODO Task 3
 	// Use the following method to get a list of restaurants by cuisine
-	// You can add any parameters (if any) and the return type 
+	// You can add any parameters (if any) and the return type
 	// DO NOT CHNAGE THE METHOD'S NAME
-	public ??? getRestaurantsByCuisine(???) {
+	public List<String> getRestaurantsByCuisine(String cuisine) {
 		// Implmementation in here
-		
+		return restaurantRepo.getRestaurantsByCuisine(cuisine);
 	}
 
 	// TODO Task 4
 	// Use this method to find a specific restaurant
-	// You can add any parameters (if any) 
+	// You can add any parameters (if any)
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
-	public Optional<Restaurant> getRestaurant(???) {
+	public Optional<Restaurant> getRestaurant(String name) {
 		// Implmementation in here
-		
+		if (restaurantRepo.getRestaurant(name).isPresent()) {
+			Restaurant rest = restaurantRepo.getRestaurant(name).get();
+			return Optional.of(rest);
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	// TODO Task 5
@@ -50,7 +55,7 @@ public class RestaurantService {
 	// DO NOT CHNAGE THE METHOD'S NAME OR THE RETURN TYPE
 	public void addComment(Comment comment) {
 		// Implmementation in here
-		
+
 	}
 	//
 	// You may add other methods to this class
